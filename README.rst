@@ -13,7 +13,7 @@ This project is at its early stages, things will break. Please backup your datab
 Installation
 ============
 
-Install it via `pip` (python 3+)::
+Install it via :code:`pip` (python 3+)::
 
     $ pip install --allow-external pyPEG2 --allow-unverified pyPEG2 https://github.com/BenoitZugmeyer/bank/archive/master.zip
 
@@ -52,32 +52,32 @@ An adaptor is a python module to download account transactions from any service.
 bred
 ----
 
-Interfaces with the `bred`_ french bank. `bank` will prompt for an identifier and a password if you don't provide one in the configuration file.
+Interfaces with the `bred`_ french bank. :code:`bank` will prompt for an identifier and a password if you don't provide one in the configuration file.
 
 
 Search query language
 =====================
 
-`bank` provide a query language to quickly find transactions.
+:code:`bank` provides a query language to quickly find transactions. For now, this is only accessible via the :code:`bank search` command.
 
 Full text search
 ----------------
 
-`bank` uses the `sqlite3 fts extension`_ to search inside various fields of each transaction. By default, it searches into the description field.
+:code:`bank` uses the `sqlite3 fts extension`_ to search inside various fields of each transaction. By default, it searches into the description field.
 
-`gittip`
+:code:`gittip`
     transactions with the word 'gittip' in the description
 
-`paypal or amazon`
+:code:`paypal or amazon`
     transactions containing the word 'paypal' or 'amazon'
 
-`sncf or "capitaine train"`
+:code:`sncf or "capitaine train"`
     transactions containing the word 'sncf' or 'capitaine train' (but not 'train capitaine')
 
-`volt*`
+:code:`volt*`
     transactions containing a word starting with 'volt'
 
-`type:loan`
+:code:`type:loan`
     transactions with the word 'loan' in the type field
 
 Time search
@@ -85,16 +85,16 @@ Time search
 
 Operators to filter transactions based on some dates.
 
-`since 2014-02-03`
+:code:`since 2014-02-03`
     transactions since february, 3nd 2014
 
-`since 10 days`
+:code:`since 10 days`
     transactions since 10 days from now
 
-`before 2014-02-03`
+:code:`before 2014-02-03`
     transactions before february, 3nd 2014
 
-`between 2014-01-01 and 2014-01-31`
+:code:`between 2014-01-01 and 2014-01-31`
     transactions from january 2014
 
 Amount search
@@ -102,34 +102,34 @@ Amount search
 
 Operators to filter transactions based on the amount of the transaction.
 
-`more than 1000`
+:code:`more than 1000`
     transactions with the absolute amount being more than 1000
 
-`more than +1000`
+:code:`more than +1000`
     transactions with the amount being more than 1000
 
-`less than -1000`
+:code:`less than -1000`
     transactions with the amount being less than -1000
 
 Combining everything
 --------------------
 
-All those predicates can be combined in a single query. The default operator is a `and`.
+All those predicates can be combined in a single query. The default operator is a :code:`and`.
 
-`gittip since 10 days`
+:code:`gittip since 10 days`
     transactions containing 'gittip' within the 10 last days
 
-`amazon more than +0`
+:code:`amazon more than +0`
     all amazon refounds
 
-`not account:xxx or since 10 days`
+:code:`not account:xxx or since 10 days`
     all transactions excluding those from the account id xxx if they are more than 10 days
 
 
 Configuration
 =============
 
-The configuration file should be in `yaml`_ format. By default, `bank` will use the file `bank.yml` located in the local directory, but you can specify another path with the `--config` option. All paths are relative to the configuration file
+The configuration file should be in `yaml`_ format. By default, :code:`bank` will use the file :code:`bank.yml` located in the local directory, but you can specify another path with the :code:`--config` option. All paths are relative to the configuration file
 
 The configuration file is structured as follow:
 
