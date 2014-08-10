@@ -86,13 +86,13 @@ Time search
 Operators to filter transactions based on some dates.
 
 :code:`since 2014-02-03`
-    transactions since february, 3nd 2014
+    transactions since february 3rd, 2014
 
 :code:`since 10 days`
     transactions since 10 days from now
 
 :code:`before 2014-02-03`
-    transactions before february, 3nd 2014
+    transactions before february 3rd, 2014
 
 :code:`between 2014-01-01 and 2014-01-31`
     transactions from january 2014
