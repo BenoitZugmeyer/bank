@@ -15,7 +15,9 @@ Installation
 
 Install it via `pip` (python 3+)::
 
-    $ pip install https://github.com/BenoitZugmeyer/bank/archive/master.zip
+    $ pip install --allow-external pyPEG2 --allow-unverified pyPEG2 https://github.com/BenoitZugmeyer/bank/archive/master.zip
+
+Those two pyPEG2 related flags are unfortunate but it would be resolved by `this issue`_.
 
 Usage
 =====
@@ -200,3 +202,4 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 .. _yaml: http://yaml.org/
 .. _bred: http://bred.fr/
 .. _sqlite3 fts extension: http://www.sqlite.org/fts3.html
+.. _this issue: https://bitbucket.org/fdik/pypeg/issue/23/host-pypeg-on-pypi
