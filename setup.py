@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from setuptools import setup
+from setuptools import setup, find_packages
 import os.path
 
 
@@ -20,7 +20,7 @@ setup(name='bank',
       author='Benoît Zugmeyer',
       author_email='benoit@zugmeyer.com',
       license='GPLv3',
-      packages=['bank'],
+      packages=find_packages(),
       install_requires=[
           'python-dateutil >=2.2,<3',
           'click >=2.4,<3',
