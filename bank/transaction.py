@@ -39,7 +39,7 @@ class Transaction():
             '{description!r})'.format(**self.__dict__)
 
 
-def tsv_parser(account, lines):
+def tsv_parser(account, lines, create_date=create_date):
     for line in lines:
         if not line.strip():
             continue
@@ -47,4 +47,5 @@ def tsv_parser(account, lines):
         if len(args) != 5:
             logger.warning('Bad line:', line)
             continue
+        args[0] = create_date(args[0])
         yield Transaction(account, *args)
