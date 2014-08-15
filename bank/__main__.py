@@ -143,13 +143,13 @@ def update(app):
 def balances(app):
 
     f = TableFormatter()
-    f.add_column('Account', align='<')
+    f.max_width, f.height = click.get_terminal_size()
+    f.add_column('Account')
     f.add_column('Balance', align='>')
-    f.data = (
+    f.print(
         (account.name, account.get_balance(datetime.date.today()))
         for account in app.accounts
     )
-    f.print()
 
 
 @main.command(
@@ -164,13 +164,14 @@ def balances(app):
 def tail(app, n):
 
     f = TableFormatter()
-    f.add_column('Date', align='<')
-    f.add_column('Account', align='<')
-    f.add_column('Type', align='<')
-    f.add_column('Amount', align='>', width=8)
-    f.add_column('Description', align='<', width=20)
+    f.max_width, f.height = click.get_terminal_size()
+    f.add_column('Date')
+    f.add_column('Account')
+    f.add_column('Type')
+    f.add_column('Amount', align='>')
+    f.add_column('Description')
 
-    f.data = app.db.cursor().execute('''
+    data = app.db.cursor().execute('''
     SELECT * FROM (
         SELECT date, account, type, amount, description
         FROM "transaction" ORDER BY date DESC
@@ -178,7 +179,7 @@ def tail(app, n):
     ) ORDER BY date
     ''', (n,))
 
-    f.print()
+    f.print(data)
 
 
 @main.command(
@@ -193,11 +194,12 @@ def search(app, query):
     statement, arguments = ql.build(query)
 
     f = TableFormatter()
-    f.add_column('Date', align='<')
-    f.add_column('Account', align='<')
-    f.add_column('Type', align='<')
-    f.add_column('Amount', align='>', width=8)
-    f.add_column('Description', align='<', width=20)
+    f.max_width, f.height = click.get_terminal_size()
+    f.add_column('Date')
+    f.add_column('Account')
+    f.add_column('Type')
+    f.add_column('Amount', align='>')
+    f.add_column('Description')
 
     query = '''
     SELECT * FROM (
@@ -211,9 +213,7 @@ def search(app, query):
     logger.debug(query)
     logger.debug(repr(arguments))
 
-    f.data = app.db.cursor().execute(query, arguments)
-
-    f.print()
+    f.print(app.db.cursor().execute(query, arguments))
 
 
 @main.command(
