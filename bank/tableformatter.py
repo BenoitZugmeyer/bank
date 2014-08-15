@@ -14,14 +14,18 @@ def rindex(list, needle):
 
 class Column(object):
 
-    align = '<'
-    align_header = '^'
-    left_margin = 1
-    right_margin = 1
+    def __init__(self,
+                 label,
+                 align='<',
+                 align_header='^',
+                 left_margin=1,
+                 right_margin=1):
 
-    def __init__(self, label, align='<'):
         self.label = str(label)
         self.align = align
+        self.left_margin = left_margin
+        self.right_margin = right_margin
+        self.align_header = align_header
 
     def format(self, data):
         return str(data)
@@ -131,7 +135,8 @@ class TableFormatterWorker(object):
 
     def _compute_extra_width(self):
         return sum(c.left_margin + c.right_margin for c in self.columns) +\
-            len(self.formatter.vertical_separator) * len(self.columns) + 1
+            len(self.formatter.vertical_separator) * (len(self.columns) - 1) +\
+            len(self.formatter.external_vertical_separator) * 2
 
     def write(self, str):
         self._lines_written += str.count('\n')
@@ -153,12 +158,24 @@ class TableFormatterWorker(object):
                 wraped_values.append((value,))
 
         for line in itertools.zip_longest(*wraped_values):
-            self.write('|')
+            first = True
             for (index, column), cell in zip(enumerate(self.columns), line):
+                if first:
+                    first = False
+                    self.write(self.formatter.external_vertical_separator)
+                else:
+                    self.write(self.formatter.vertical_separator)
+
                 align = column.align_header if header else column.align
-                self.write(' {:{}{}} |'.format(cell or '',
-                                               align,
-                                               self._column_widths[index]))
+
+                self.write('{}{:{}{}}{}'.format(
+                    column.left_margin * ' ',
+                    cell or '',
+                    align,
+                    self._column_widths[index],
+                    column.right_margin * ' '))
+
+            self.write(self.formatter.external_vertical_separator)
             self.write('\n')
 
     def write_header(self):
@@ -192,6 +209,7 @@ class TableFormatterWorker(object):
 class TableFormatter(object):
 
     vertical_separator = '|'
+    external_vertical_separator = '|'
     horizontal_separator = '-'
     width = None
     max_width = None
