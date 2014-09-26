@@ -186,8 +186,14 @@ def tail(app, n):
     help='Search for transactions'
 )
 @click.argument('query')
+@click.option(
+    '--total', '-T',
+    is_flag=True,
+    help='''
+        Displays the total at the end
+    ''')
 @pass_app
-def search(app, query):
+def search(app, query, total):
 
     from . import ql
 
@@ -212,8 +218,23 @@ def search(app, query):
 
     logger.debug(query)
     logger.debug(repr(arguments))
+    t = 0
 
-    f.print(app.db.cursor().execute(query, arguments))
+    transactions = app.db.cursor().execute(query, arguments)
+
+    def make_total(it):
+        nonlocal t
+        for transaction in it:
+            t += transaction[3]
+            yield transaction
+
+    if total:
+        transactions = make_total(transactions)
+
+    f.print(transactions)
+
+    if total:
+        print('total: {}'.format(t))
 
 
 @main.command(
