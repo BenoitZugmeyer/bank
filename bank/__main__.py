@@ -1,3 +1,4 @@
+import os.path
 import yaml
 import json
 import sys
@@ -14,6 +15,9 @@ from .account import Account
 from .tableformatter import TableFormatter
 
 logger = logging.getLogger(__name__)
+default_config_path = os.path.join(os.path.expanduser('~'),
+                                   '.config',
+                                   project_name + '.yml')
 
 
 class App(object):
@@ -49,7 +53,7 @@ def print_version(ctx, value):
               type=click.Path(dir_okay=False,
                               readable=True,
                               resolve_path=True),
-              default=project_name + '.yml',
+              default=default_config_path,
               show_default=True)
 @click.pass_context
 def main(ctx, verbose, config_path):
