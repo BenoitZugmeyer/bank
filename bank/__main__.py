@@ -33,7 +33,7 @@ class App(object):
 pass_app = click.make_pass_decorator(App)
 
 
-def print_version(ctx, value):
+def print_version(ctx, param, value):
     if value and not ctx.resilient_parsing:
         import pkg_resources
         version = pkg_resources.require(project_name)[0].version
