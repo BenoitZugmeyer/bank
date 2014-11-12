@@ -190,7 +190,7 @@ class TableFormatterWorker(object):
 
         index = None
         for index, data_row in enumerate(self._iter_data_rows()):
-            if (height and self._lines_written > last_header_index + height) or \
+            if (height and self._lines_written >= last_header_index + height) or \
                     self._lines_written == 0:
                 last_header_index = self._lines_written
                 self.write_header()
