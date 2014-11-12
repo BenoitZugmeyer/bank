@@ -15,9 +15,7 @@ Installation
 
 Install it via :code:`pip` (python 3+)::
 
-    $ pip install --allow-external pyPEG2 --allow-unverified pyPEG2 https://github.com/BenoitZugmeyer/bank/archive/master.zip
-
-Those two pyPEG2 related flags are unfortunate but it would be resolved by `this issue`_.
+    $ pip install https://github.com/BenoitZugmeyer/bank/archive/master.zip
 
 Usage
 =====
@@ -30,7 +28,7 @@ Usage
     Options:
       -v, --verbose
       -V, --version  Print version and exit
-      --config PATH  [default: bank.yml]
+      --config PATH  [default: ~/.config/bank.yml]
       --help         Show this message and exit.
 
     Commands:
