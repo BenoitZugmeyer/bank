@@ -102,7 +102,7 @@ class TableFormatterWorker(object):
     def _compute_width(self, strings):
         max_width = 0
         max_acceptable_width = 0
-        word_re = re.compile(r'\W+')
+        word_re = re.compile(r'\s+')
         for s in strings:
             width = len(s)
             if width > max_width:
